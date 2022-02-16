@@ -28,7 +28,7 @@
          <x-dropdown-item :active="request()->routeIs('home')" href="/">All</x-dropdown-item>
 
             @foreach ($categories as $category)
-            <x-dropdown-item  :active="isset($currentCategory) && $currentCategory->id === $category->id" href="/categories/{{ $category->slug }}">{{ $category->name }}</x-dropdown-item>
+            <x-dropdown-item  :active="isset($currentCategory) && $currentCategory->id === $category->id" href="/?category={{ $category->slug }}">{{ $category->name }}</x-dropdown-item>
               
             @endforeach
 

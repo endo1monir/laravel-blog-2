@@ -22,11 +22,14 @@ $query->when($filters['search']?? false , function($query,$search){
 
 });
 $query->when($filters['category']?? false,fn($query,$category)=>
-$query->whereExists(fn($query)=>
-$query->from('categories')
-->whereColumn('categories.id','posts.category_id')
-->where('categories.slug',$category)
+$query->whereHas('category',fn($query)=>
+$query->where('categories.slug',$category)
 )
+// $query->whereExists(fn($query)=>
+// $query->from('categories')
+// ->whereColumn('categories.id','posts.category_id')
+// ->where('categories.slug',$category)
+//)
 );
   // if($filters(['search']??false)){
   //   $query->where('title','like','%'.request('search').'%')
