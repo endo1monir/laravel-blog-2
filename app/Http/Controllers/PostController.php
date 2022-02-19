@@ -11,6 +11,7 @@ class PostController extends Controller
     //
 
 public function index(){
+  //dd(request()->url());
   return view('posts.index',['posts'=>$this->getPosts(),'categories'=>Category::all(),
   // 'currentCategory'=>Category::firstWhere('slug',request('category'))
 
