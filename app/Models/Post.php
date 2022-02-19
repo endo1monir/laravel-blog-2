@@ -31,6 +31,12 @@ $query->where('categories.slug',$category)
 // ->where('categories.slug',$category)
 //)
 );
+$query->when($filters['author']?? false, fn($query,$author)=>
+$query->whereHas('author',fn($query)=>
+$query->where('username',$author)
+)
+);
+
   // if($filters(['search']??false)){
   //   $query->where('title','like','%'.request('search').'%')
   //   ->orWhere('body','like','%'.request('search').'%');

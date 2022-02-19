@@ -11,28 +11,8 @@
     </p>
 
     <div class="space-y-2 lg:space-y-0 lg:space-x-4 mt-8">
-        <x-dropdown>
-            <x-slot name="trigger">
-                <button class="lg:inline-flex lg:w-32 w-full py-2 pl-3 pr-9 text-sm font-semibold">
-                    @if (isset($currentCategory))
-                        {{ $currentCategory->name }}
-                    @else
-                        categories
-                    @endif
-
-
-                  <x-down-arrow class="absolute pointer-events-none" />
-
-                </button>
-            </x-slot>
-         <x-dropdown-item :active="request()->routeIs('home')" href="/">All</x-dropdown-item>
-
-            @foreach ($categories as $category)
-            <x-dropdown-item  :active="isset($currentCategory) && $currentCategory->id === $category->id" href="/?category={{ $category->slug }}">{{ $category->name }}</x-dropdown-item>
-              
-            @endforeach
-
-        </x-dropdown>
+        <x-category-dropdown />
+      
         <!--  Category -->
       {{--   <div class="relative flex lg:inline-flex items-center bg-gray-100 rounded-xl">
             <div x-data="{ show : false}" @click.away="show=false">
