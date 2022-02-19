@@ -8,6 +8,7 @@
       <x-post-featured-card :post="$posts->first()" />
 
         <x-posts-grid :posts="$posts" />
+        {{$posts->links()}}
         @else
         <p>Ther is no posts yet.</p>
         @endif

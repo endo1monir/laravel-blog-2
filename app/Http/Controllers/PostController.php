@@ -12,10 +12,12 @@ class PostController extends Controller
 
 public function index(){
   //dd(request()->url());
-  return view('posts.index',['posts'=>$this->getPosts(),'categories'=>Category::all(),
-  // 'currentCategory'=>Category::firstWhere('slug',request('category'))
+  return view('posts.index',['posts'=>Post::filter(request(['search','category','author']))->paginate(8)
+->withQueryString()]);
+//   return view('posts.index',['posts'=>$this->getPosts(),'categories'=>Category::all(),
+//   // 'currentCategory'=>Category::firstWhere('slug',request('category'))
 
-]);
+// ]);
     }
 
 public function show(Post $post){
