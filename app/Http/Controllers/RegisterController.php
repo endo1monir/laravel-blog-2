@@ -19,6 +19,8 @@ $attributes=request()->validate([
     'email'=>'required|email|max:255',
     'password'=>'required|min:7|max:255'
 ]);   
+//$attributes['password']=bcrypt($attributes['password']);
 User::create($attributes);
+return redirect('/');
 }
 }
