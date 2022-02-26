@@ -20,11 +20,13 @@ $attributes=request()->validate([
     'name'=>'required|max:255',
   //  'username'=>'required|max:255|min:3|unique:users,username',
   'username'=>['required','max:255','min:3',ValidationRule::unique('users','username')],
-    'email'=>'required|email|max:255',
+    'email'=>'required|email|max:255|unique:users,email',
     'password'=>'required|min:7|max:255'
-]);   
+]);
 //$attributes['password']=bcrypt($attributes['password']);
-User::create($attributes);
-return redirect('/');
+$user=User::create($attributes);
+// request()->session()->flash('success','your account has been created');
+auth()->login($user);
+return redirect('/')->with('success','your account has been created');
 }
 }

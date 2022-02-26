@@ -11,6 +11,7 @@ class PostController extends Controller
     //
 
 public function index(){
+
   //dd(request()->url());
   return view('posts.index',['posts'=>Post::filter(request(['search','category','author']))->paginate(8)
 ->withQueryString()]);
