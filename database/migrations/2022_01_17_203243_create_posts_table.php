@@ -11,15 +11,15 @@ class CreatePostsTable extends Migration
      *
      * @return void
      */
-   
+
      public function up()
     {
-     
+
         Schema::create('posts', function (Blueprint $table) {
-            
+
             $table->id();
             $table->foreignId('category_id');
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('slug')->unique();
             $table->string('title');
             $table->text('excerpt');
@@ -28,7 +28,7 @@ class CreatePostsTable extends Migration
             $table->timestamp('publishe_at')->nullable();
         });
 
-        
+
     }
 
     /**
