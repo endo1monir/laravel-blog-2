@@ -22,7 +22,7 @@ $query->when($filters['search']?? false , function($query,$search){
       ->orWhere('body','like','%'.$search.'%')
 
 );
-  
+
 });
 $query->when($filters['category']?? false,fn($query,$category)=>
 $query->whereHas('category',fn($query)=>
@@ -45,8 +45,11 @@ $query->where('username',$author)
   //   ->orWhere('body','like','%'.request('search').'%');
   //     }
 }
+public function comments(){
+    return $this->hasMany(Comment::class);
+}
 public function author(){
   return $this->belongsTo(User::class,'user_id');
-}  
+}
   use HasFactory;
 }
