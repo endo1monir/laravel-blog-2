@@ -34,4 +34,5 @@ protected function getPosts(){
 //   }
   return $posts;
 }
+// index,show,create,store,edit,update,destroy
 }

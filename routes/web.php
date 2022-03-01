@@ -43,6 +43,8 @@ Route::get('author/{author:username}',function(User $author){
 //return view('posts',['posts'=>$author->posts->load(['category','author'])]);
 return view('posts.index',['posts'=>$author->posts,'categories'=>Category::all()]);
 });
+
+Route::post('posts/{post:slug}/comments',[PostCommentsController::class,'store']);
 Route::get('register',[RegisterController::class,'create'])->middleware('guest');
 Route::post('register',[RegisterController::class,'store'])->middleware('guest');
 Route::get('login',[SessionController::class,'create'])->middleware('guest');

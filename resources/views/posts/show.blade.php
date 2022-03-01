@@ -8,13 +8,13 @@
                     <img src="/images/illustration-1.png" alt="" class="rounded-xl">
 
                     <p class="mt-4 block text-gray-400 text-xs">
-                        Published <time>{{$post->created_at->diffForHumans()}}</time>
+                        Published <time>{{ $post->created_at->diffForHumans() }}</time>
                     </p>
 
                     <div class="flex items-center lg:justify-center text-sm mt-4">
                         <img src="/images/lary-avatar.svg" alt="Lary avatar">
                         <div class="ml-3 text-left">
-                            <h5 class="font-bold">{{$post->author->name}}</h5>
+                            <h5 class="font-bold">{{ $post->author->name }}</h5>
                             <h6>Mascot at Laracasts</h6>
                         </div>
                     </div>
@@ -38,21 +38,42 @@
                         </a>
 
                         <div class="space-x-2">
-                           <x-category-button :name="$post->category->name" :slug="$post->category->slug"/>
+                            <x-category-button :name="$post->category->name" :slug="$post->category->slug" />
 
                         </div>
                     </div>
 
-                    <h1 class="font-bold text-3xl lg:text-4xl mb-10">{{$post->title}}
+                    <h1 class="font-bold text-3xl lg:text-4xl mb-10">{{ $post->title }}
                     </h1>
 
                     <div class="space-y-4 lg:text-lg leading-loose">
-                        {{$post->body}}
+                        {{ $post->body }}
                     </div>
                 </div>
                 <section class="col-span-8 col-start-5 mt-10 space-y-6">
-                    @foreach ( $post->comments as $comment )
-                    <x-post-comment :comment="$comment"/>
+                    <x-panel>
+                        <form action="/posts/{{$post->slug}}/comments" method="POST">
+                            @csrf
+                            <header class="flex items-center">
+                                <img src="https://i.pravatar.cc/60?u=40" alt="" width="40" height="40"
+                                    class="rounded-full">
+                                <h2 class="ml-4">want to participate ?</h2>
+                            </header>
+                            <div class="mt-6">
+                                <textarea name="body" class="
+        w-full text-sm focus:outline-none focus:ring" id=""
+                                    placeholder="Quick thing something to say" cols="30" rows="10"></textarea>
+                            </div>
+                            <div class="flex justify-end mt-6 border-t border-gray-200 pt-6">
+                                <button type="submit"
+                                    class="bg-blue-500 text-white uppercase font-semibold text-xs py-2 px-10 rounded-2xl hover:bg-blue-600">Post</button>
+                            </div>
+
+                        </form>
+                    </x-panel>
+
+                    @foreach ($post->comments as $comment)
+                        <x-post-comment :comment="$comment" />
                     @endforeach
 
                 </section>

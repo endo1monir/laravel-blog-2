@@ -16,7 +16,7 @@ public function category(){
   return $this->belongsTo(Category::class);
 }
 public function scopeFilter($query,array $filters){
-$query->when($filters['search']?? false , function($query,$search){
+$query->when($filters['search'] ?? false , function($query,$search){
   $query->where(fn($query)=>
   $query->where('title','like','%'.$search.'%')
       ->orWhere('body','like','%'.$search.'%')
