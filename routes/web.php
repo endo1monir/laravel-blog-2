@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\PostCommentsController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\File;
@@ -44,9 +47,27 @@ Route::get('author/{author:username}',function(User $author){
 return view('posts.index',['posts'=>$author->posts,'categories'=>Category::all()]);
 });
 
-Route::post('posts/{post:slug}/comments',[PostCommentsController::class,'store']);
+Route::get('ping',function(){
+
+$mailchimp = new \MailchimpMarketing\ApiClient();
+
+$mailchimp->setConfig([
+	'apiKey' => config('services.mailchimp.key'),
+	'server' => 'us14'
+]);
+
+$response = $mailchimp->ping->get();
+
+ddd($mailchimp->lists->addListMember('133d8c5a7f',[
+    "email_address" => "Lindsey.White93@hotmail.com",
+    "status" => "subscribed",
+]));
+});
 Route::get('register',[RegisterController::class,'create'])->middleware('guest');
 Route::post('register',[RegisterController::class,'store'])->middleware('guest');
 Route::get('login',[SessionController::class,'create'])->middleware('guest');
 Route::post('login',[SessionController::class,'store'])->middleware('guest');
 Route::post('logout',[SessionController::class,'destroy'])->middleware('auth');
+
+
+Route::post('posts/{post:slug}/comments',[PostCommentsController::class,'store']);
