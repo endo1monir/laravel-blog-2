@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostCommentsController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\SessionController;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
+use App\Services\NewsLetter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
@@ -47,22 +49,28 @@ Route::get('author/{author:username}',function(User $author){
 return view('posts.index',['posts'=>$author->posts,'categories'=>Category::all()]);
 });
 
-Route::get('ping',function(){
+ Route::post('/newsletter',NewsletterController::class);
+ //function(NewsLetter $newsletter){
+// // request()->validate([
+// //     'email'=>'required|email'
+// // ]);
+// // try{
+// // // $newsletter=new NewsLetter();
+// //  $newsletter->subscribe(request('email'));
+// // }
+// // catch(\Exception $e){
+// // throw \Illuminate\Validation\ValidationException::withMessages(['email'=>'this email couldn\'t be added to our nesletter']);
+// // }
 
-$mailchimp = new \MailchimpMarketing\ApiClient();
+// // return redirect('/')->with('success','you are now signed up with newsteller');
 
-$mailchimp->setConfig([
-	'apiKey' => config('services.mailchimp.key'),
-	'server' => 'us14'
-]);
+// // $response = $mailchimp->ping->get();
 
-$response = $mailchimp->ping->get();
-
-ddd($mailchimp->lists->addListMember('133d8c5a7f',[
-    "email_address" => "Lindsey.White93@hotmail.com",
-    "status" => "subscribed",
-]));
-});
+// // ddd($mailchimp->lists->addListMember('133d8c5a7f',[
+// //     "email_address" => "endo.White93@hotmail.com",
+// //     "status" => "subscribed",
+// // ]));
+// });
 Route::get('register',[RegisterController::class,'create'])->middleware('guest');
 Route::post('register',[RegisterController::class,'store'])->middleware('guest');
 Route::get('login',[SessionController::class,'create'])->middleware('guest');
