@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\MailchimpNewsLetter;
 use App\Services\NewsLetter;
 use Illuminate\Http\Request;
 use League\CommonMark\Node\Inline\Newline;
@@ -10,6 +11,7 @@ class NewsletterController extends Controller
 {
 
  public function __invoke(NewsLetter $newsletter){
+    // ddd($newsletter);
         request()->validate([
             'email'=>'required|email'
         ]);

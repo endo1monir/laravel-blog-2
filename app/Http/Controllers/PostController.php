@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
+use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 
 class PostController extends Controller
 {
@@ -35,4 +37,14 @@ protected function getPosts(){
   return $posts;
 }
 // index,show,create,store,edit,update,destroy
+
+public function create(){
+//     if(auth()->guest()){
+// abort(HttpFoundationResponse::HTTP_FORBIDDEN);
+//     }
+//     if(auth()->user()->username!=='endomon'){
+// abort(HttpFoundationResponse::HTTP_FORBIDDEN);
+//     }
+return view('posts.create');
+}
 }
