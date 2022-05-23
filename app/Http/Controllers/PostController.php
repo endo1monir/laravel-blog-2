@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Post;
 use Facade\FlareClient\Http\Response;
+use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule as ValidationRule;
 use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
 
 class PostController extends Controller
@@ -46,5 +48,18 @@ public function create(){
 // abort(HttpFoundationResponse::HTTP_FORBIDDEN);
 //     }
 return view('posts.create');
+}
+public function store(){
+// ddd(request()->all());
+$attributes=request()->validate([
+    'title'=>'required',
+    'slug'=>['required',ValidationRule::unique('posts','slug')],
+    'excerpt'=>'required',
+    'body'=>'required',
+    'category_id'=>['required',ValidationRule::exists('categories','id')]
+]);
+$attributes['user_id']=auth()->user()->id;
+Post::create($attributes);
+return redirect('/');
 }
 }
