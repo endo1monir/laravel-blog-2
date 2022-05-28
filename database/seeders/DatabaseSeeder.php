@@ -15,25 +15,25 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::truncate();
-        Category::truncate();
-        Post::truncate();
+        // User::truncate();
+        // Category::truncate();
+        // Post::truncate();
 
       $user=User::factory()->create(['name'=>'endo monir']);
     Post::factory(5)->create(['user_id'=>$user->id]);
     Post::factory()->create();
 //     $user=User::factory()->create();
-    
+
 // $personal=Category::create([
 //         'name'=>'personal',
 //         'slug'=>'personal'
 //     ]);
-    
+
 //     $family=Category::create([
 //         'name'=>'Family',
 //         'slug'=>'family'
 //     ]);
-    
+
 //     $work=Category::create([
 //         'name'=>'Work',
 //         'slug'=>'work'
@@ -63,6 +63,6 @@ class DatabaseSeeder extends Seeder
 //     'excerpt'=>'excerpt',
 //     'body'=>'body'
 // ]);
-    
+
         }
 }

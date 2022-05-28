@@ -17,7 +17,7 @@ class MustBeAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->user()?->username!=='endomon'){
+        if(auth()->user()?->username!=='endo_admin'){
 abort(Response::HTTP_FORBIDDEN);
         }
         return $next($request);

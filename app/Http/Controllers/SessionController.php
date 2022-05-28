@@ -30,7 +30,7 @@ return redirect('/')->with('success','Welcome back '. $name);
     // ->withInput()
     // ->withErrors(['email'=>'your email not exist']);
 //the second way -->
-throw ValidationValidationException::withMessages(['email'=>'your email not exist']);
+throw ValidationValidationException::withMessages(['email'=>'your email not exist','password'=>'incorrect password']);
 }
     public function destroy(){
 auth()->logout();
