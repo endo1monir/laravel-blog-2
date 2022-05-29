@@ -22,13 +22,22 @@
             </div>
 
             <div class="mt-8 md:mt-0 flex items-center">
-                <a href="/" class="text-xs font-bold uppercase">Home Page</a>
+                <a href="/" class="text-xs font-bold uppercase m-5">Home Page</a>
                 @auth
-                    <span class="text-xs font-bold uppercase">welcome back {{ auth()->user()->name }}</span>
-                    <form method="POST" action="/logout" class="text-xs font-semibold text-blue-500 ml-6">
-                        @csrf
-                        <button type="submit">Log out</button>
-                    </form>
+                    <x-dropdown>
+                        <x-slot name="trigger">
+                            <button class="text-xs font-bold uppercase">welcome back {{ auth()->user()->name }}</button>
+                        </x-slot>
+                        <x-dropdown-item href="/admin/dashboard"> Dashboard </x-dropdown-item>
+
+                        <x-dropdown-item href="/admin/posts/create/" active="{{ request()->is('admin/posts/create/') }}"> New Post </x-dropdown-item>
+                        <x-dropdown-item href="#" x-data={} @click.prevent="document.querySelector('#form_logout').submit()"> Log out </x-dropdown-item>
+                        <form method="POST" id="form_logout" action="/logout" class="hidden">
+                            @csrf
+                            <button type="submit">Log out</button>
+                        </form>
+                    </x-dropdown>
+
                 @else
                     <a href="/register" class="ml-3 text-xs font-bold uppercase">Register</a>
                     <a href="/login" class="ml-3 text-xs font-bold uppercase">login</a>
@@ -76,7 +85,7 @@
                 </div>
             </div>
             @if (session()->has('success'))
-                <div x-data="{show:true}" x-init="setTimeout(()=>show=false,4000)" x-show="show"
+                <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 4000)" x-show="show"
                     class="fixed bg-blue-500 text-white py-2 px-4 rounded-xl bottom-3 right-3 text-sm">
                     <p>
                         {{ session('success') }}
