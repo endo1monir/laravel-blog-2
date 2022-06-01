@@ -47,7 +47,7 @@ public function create(){
 //     if(auth()->user()->username!=='endomon'){
 // abort(HttpFoundationResponse::HTTP_FORBIDDEN);
 //     }
-return view('posts.create');
+return view('admin.posts.create');
 }
 public function store(){
 //  ddd(request()->all());

@@ -6,7 +6,7 @@
     <div class="flex">
         <aside class="w-48">
 <ul>
-    <li><a>Dashboard</a></li>
+    <li><a href="{{ route('admin.posts.index') }}">All Posts</a></li>
     <li><a href="/admin/posts/create" class="{{ request()->is('admin/posts/create')? 'text-blue-500':'' }}">New post</a></li>
 
 </ul>
